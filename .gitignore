@@ -1,0 +1,5 @@
+/.claude
+/.cursor
+/public
+.hugo_build.lock
+resources/_gen/

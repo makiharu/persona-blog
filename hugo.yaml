@@ -1,4 +1,115 @@
 baseURL: https://example.org/
-languageCode: en-us
-title: My New Hugo Site
+languageCode: ja
+title: Kurino's Blog
 theme: ["PaperMod"]
+
+defaultContentLanguage: ja
+
+# ページネーション
+pagination:
+  pagerSize: 10
+
+# 分類
+taxonomies:
+  category: categories
+  tag: tags
+
+# メニュー
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 1
+    - identifier: about
+      name: Profile
+      url: /about/
+      weight: 2
+    - identifier: tech
+      name: Tech
+      url: /tech/
+      weight: 3
+    - identifier: magic
+      name: Magic
+      url: /magic/
+      weight: 4
+    - identifier: misc
+      name: Misc
+      url: /misc/
+      weight: 5
+    - identifier: reviews
+      name: Reviews
+      url: /reviews/
+      weight: 6
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 7
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 8
+
+# PaperMod設定
+params:
+  env: production
+  title: Kurino's Blog
+  description: "技術・手品・雑記・レビューなど"
+  author: Kurino
+
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecialInArticleSeries: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  # ホームページ設定
+  homeInfoParams:
+    Title: "Welcome"
+    Content: 技術・手品・雑記・読んだもの見たものなど、色々書いています。
+
+  # ソーシャルアイコン（必要に応じて編集）
+  socialIcons:
+    - name: github
+      url: "https://github.com/"
+    - name: twitter
+      url: "https://twitter.com/"
+
+  # 検索設定
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# 出力設定（検索用）
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# マークダウン設定
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
+  goldmark:
+    renderer:
+      unsafe: true
