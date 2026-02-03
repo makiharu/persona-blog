@@ -76,7 +76,7 @@ params:
 
   # ホームページ設定
   homeInfoParams:
-    Title: "Welcome"
+    Title: "Welcome My Blog!"
     Content: 技術・手品・雑記・読んだもの見たものなど、色々書いています。
 
   # ソーシャルアイコン（必要に応じて編集）
