@@ -82,7 +82,7 @@ params:
   # ソーシャルアイコン（必要に応じて編集）
   socialIcons:
     - name: github
-      url: "https://github.com/"
+      url: "https://github.com/makiharu"
     - name: twitter
       url: "https://twitter.com/"
 
