@@ -9,7 +9,7 @@ ShowBreadCrumbs: false
 
 ## About Me
 
-ここに自己紹介を書いてください。
+kurino
 
 ## Interests
 
@@ -20,5 +20,5 @@ ShowBreadCrumbs: false
 
 ## Contact
 
-- GitHub: [your-github](https://github.com/)
+- GitHub: [github](https://github.com/makiharu")
 - Twitter: [your-twitter](https://twitter.com/)
