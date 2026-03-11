@@ -1,6 +1,6 @@
 ---
 date: '2026-03-11T21:39:12+09:00'
-draft: true
+draft: false
 title: 'npm create vite@latest 実行で出たエラーを解決した'
 categories: ["Tech"]
 tags: ["npm", "Vite", "TypeScript", "VSCode", "cli"]
