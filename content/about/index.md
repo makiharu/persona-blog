@@ -21,4 +21,3 @@ kurino
 ## Contact
 
 - GitHub: [github](https://github.com/makiharu")
-- Twitter: [your-twitter](https://twitter.com/)

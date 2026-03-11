@@ -28,18 +28,25 @@ npm create vite@latest
 
 ### VSCodeは独自のTypeScriptを持っている
 
+そもそも **VSCode自体がTypeScriptで開発されています**。VSCodeのソースコードはTypeScriptで書かれており、TypeScriptはVSCodeにとって開発言語そのものです。
+
+さらにVSCodeは、エディタ上で型チェックや補完を動かすために **TypeScript Language Service**（TypeScriptの型解析エンジン）を内部に同梱しています。これがエディタ機能の核であり、プロジェクトの `node_modules` とは完全に別物です。
+
+```
+VSCode本体
+  ├── VSCode自身のコード（TypeScriptで書かれている）
+  └── TypeScript Language Service（同梱）← エディタの型チェックに使われる
+        バージョン: 4.9.3
+
+プロジェクト
+  └── node_modules/typescript（npm installで入る）
+        バージョン: 5.x
+```
+
 `npm install` を実行すると `package.json` に記載のTypeScript（5.x系）は `node_modules/typescript` にインストールされます。
-しかし **VSCodeのエディタ機能（IntelliSense・型チェック）はデフォルトでVSCode本体に同梱されたTypeScriptを使います**。`node_modules` のTypeScriptは参照しません。
+しかし **VSCodeのエディタ機能はデフォルトで同梱のTypeScript Language Serviceを使うため、`node_modules` のTypeScriptは参照しません**。
 
 これはVSCodeの意図的な設計で、「プロジェクトにTypeScriptがインストールされていなくてもエディタが動く」ようにするためです。
-
-```
-npm install → node_modules/typescript@5.x ✅ インストール済み
-                                                ↑
-                                           VSCodeは参照しない
-
-VSCode → 同梱の typescript@4.9.3 で型チェック → エラー
-```
 
 ### なぜエラーになるのか
 
