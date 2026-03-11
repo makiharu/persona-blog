@@ -113,3 +113,7 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+
+# サブフォルダを無視したURL生成を行う
+permalinks:
+  tech: /tech/:filename/
