@@ -1,0 +1,49 @@
+name: Deploy Hugo to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. リポジトリのコードをサーバーに取得
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # テーマ（PaperMod）もまとめて取得
+
+      # 2. Hugoをサーバーにインストール
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.154.3"
+          extended: true  # PaperModはextended版が必要
+
+      # 3. hugo コマンドでビルド
+      - name: Build
+        run: hugo --minify
+
+      # 4. ビルド結果（public/）をGitHub Pagesにデプロイする準備
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build  # buildジョブが成功してから実行
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # 5. GitHub Pagesに公開
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
