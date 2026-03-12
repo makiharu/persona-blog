@@ -5,3 +5,4 @@
 resources/_gen/
 README
 .DS_Store
+/docs
