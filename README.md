@@ -1,4 +1,4 @@
-# Kurino's Blog
+# Blog
 
 個人技術ブログ。
 Hugo + PaperMod テーマ、GitHub Pages にホスト。
