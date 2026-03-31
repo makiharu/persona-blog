@@ -1,7 +1,7 @@
 ---
 title: "技術カテゴリのサンプル記事"
 date: 2026-01-17
-draft: true
+draft: false
 tags: ["sample", "tech"]
 categories: ["tech"]
 summary: "技術カテゴリのサンプル記事です。"

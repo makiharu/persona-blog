@@ -116,4 +116,4 @@ markup:
 
 # サブフォルダを無視したURL生成を行う
 permalinks:
-  tech: /tech/:filename/
+  tech: /tech/:contentbasename/
