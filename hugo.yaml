@@ -54,7 +54,7 @@ menu:
 params:
   env: production
   title: kushun's Blog
-  description: "技術・手品・雑記・レビューなど"
+  description: "技術・週末マジシャン活動記録・雑記・レビューなど"
   author: kushun
 
   defaultTheme: auto
