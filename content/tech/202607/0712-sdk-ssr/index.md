@@ -95,6 +95,7 @@ Next.jsは必ずNode.jsサーバーを立てる必要があるわけではなく
 * document
 
 などブラウザのAPIを前提にしているものがある。
+例えば、Twilio SDK, Teams SDKとか。
 
 しかしビルド中はNode.js環境なので、
 
