@@ -1,15 +1,16 @@
 ---
-title: "雑記のサンプル記事"
+title: "はじめに"
 date: 2026-01-17
 draft: false
 tags: ["sample", "misc"]
 categories: ["misc"]
-summary: "雑記のサンプル記事です。"
+summary: "雑記/走り書き ページのintoroduction"
 ---
 
 ## はじめに
 
-これは雑記のサンプル記事です。
+
+
 
 ## 内容
 

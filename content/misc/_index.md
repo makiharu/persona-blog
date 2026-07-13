@@ -1,4 +1,4 @@
 ---
 title: "Misc"
-description: "雑記"
+description: "雑記/走り書き"
 ---

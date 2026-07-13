@@ -9,6 +9,7 @@ https://makiharu.github.io/persona-blog/
 
 ```bash
 hugo server -D
+
 ```
 
 http://localhost:1313 でプレビュー確認。
