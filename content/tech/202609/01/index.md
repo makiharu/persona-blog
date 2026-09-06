@@ -1,6 +1,8 @@
 ---
-title: "Tech"
-description: "技術関連の記事"
+  title: "SMTPとMIME、メールが日本語や画像を運べる仕組みを整理する"
+  description: "技術関連の記事"
+  date: 2026-09-06
+  tags: [network, email, SMTP, MIME]
 ---
 
 MIMEについて学んだことのアウトプット
