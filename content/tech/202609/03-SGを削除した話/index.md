@@ -1,7 +1,7 @@
 ---
   title: "AWSセキュリティグループの削除前に確認すること"
   description: "技術関連の記事"
-  date: 2026-09-13
+  date: 2026-09-12
   tags: [aws, security-group, security]
 ---
 
