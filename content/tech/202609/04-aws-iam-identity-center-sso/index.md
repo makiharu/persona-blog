@@ -90,7 +90,8 @@ aws sts get-caller-identity --profile YOUR_PROFILE_NAME
 
 ## 5. SSOセッションが切れた場合
 
-今回、2hで設定したので、2時間毎に｀aws sso login｀の必要がある。
+Permission Setのセッション時間は2時間に設定した。AWS CLIは、IAM Identity Centerへのログインセッションが有効な間はAWS認証情報を必要に応じて自動更新する。SSOログインセッション自体が切れた場合は、aws sso loginを再実行する。
+
 ```bash
 aws sso login --profile YOUR_PROFILE_NAME
 ```

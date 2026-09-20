@@ -3,6 +3,9 @@ languageCode: ja
 title: kushun's Blog
 theme: ["PaperMod"]
 
+# 日本語・中国語・韓国語の文字数と読了時間を正しく計算する
+hasCJKLanguage: true
+
 defaultContentLanguage: ja
 
 # ページネーション
