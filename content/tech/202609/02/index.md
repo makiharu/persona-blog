@@ -4,7 +4,7 @@
   categories: ["Tech"]
   date: 2026-09-12
   tags: [aws, iam, MFA]
-  summary: "外部ファイルなしでMarkdownに画像を埋め込む方法のメモ。Data URIスキームを使う。"
+  summary: "AWSでMFAを強制する方法とIAM Identity Centerの使い分け"
 ---
 
 
