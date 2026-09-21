@@ -1,8 +1,15 @@
-# TerraformでS3バケットを作成・削除する
+---
+  title: "TerraformでAWS S3バケットを作成・削除する"
+  description: "macOSにTerraformとAWS CLIをセットアップし、SSO認証でS3バケットを操作する方法を整理する"
+  categories: ["Tech"]
+  date: 2026-09-20
+  tags: [terraform, aws, s3, aws-cli, iam-identity-center, infrastructure-as-code]
+  summary: "macOSにTerraformとAWS CLIをセットアップし、IAM Identity CenterのSSO認証を使ってS3バケットを作成・削除する手順を整理します。"
+---
 
 ## TerraformとAWSリソースの関係
 
-Terraformでは、作りたいAWSリソースを設定ファイルに記述し、TerraformがAWS APIを呼び出して実際のリソースを作成・変更・削除する。
+Terraformでは、作りたいAWSリソースを設定ファイルに記述し、TerraformがAWS APIを呼び出して実際のリソースを作成・変更・削除します。
 
 ```mermaid
 flowchart LR
@@ -41,13 +48,13 @@ flowchart LR
 - IAM Identity Center：AWSへ接続するためのユーザーと権限を管理する
 - AWS Provider：TerraformとAWS APIの間をつなぐプラグイン
 
-重要なのは、Terraformが直接S3を操作するのではなく、AWS Providerを通じてAWS APIを呼び出す点である。また、`terraform.tfstate`はTerraformの管理に必要な情報を含むため、公開リポジトリにコミットしない。
+重要なのは、Terraformが直接S3を操作するのではなく、AWS Providerを通じてAWS APIを呼び出す点です。また、`terraform.tfstate`はTerraformの管理に必要な情報を含むため、公開リポジトリにコミットしないようにします。
 
 ## はじめに
 
-TerraformとAWS CLIをmacOS（Apple Silicon）にセットアップし、AWS IAM Identity Center（旧AWS SSO）で認証して、TerraformからS3バケットを操作する。
+TerraformとAWS CLIをmacOS（Apple Silicon）にセットアップし、AWS IAM Identity Center（旧AWS SSO）で認証して、TerraformからS3バケットを操作します。
 
-この記事では、ルートユーザーを普段の作業に使わず、IAM Identity Centerで作成したユーザーとPermission setを利用する。
+この記事では、ルートユーザーを普段の作業に使わず、IAM Identity Centerで作成したユーザーとPermission setを利用します。
 
 ## 環境
 
@@ -56,11 +63,16 @@ TerraformとAWS CLIをmacOS（Apple Silicon）にセットアップし、AWS IAM
 - Terraformの実行対象：`darwin_arm64`
 - AWS CLI：2.33.17
 - Homebrew：Apple Silicon版（`/opt/homebrew`）
+
+AWS CLIのバージョン確認結果は次のとおりです。
+
+```text
 aws-cli/2.33.17 Python/3.13.11 Darwin/25.5.0 exe/arm64
+```
 ## 1. HomebrewをApple Silicon版にする
 
-※自分は設定がおかしかったので、1の手順を実施していますが関係ない場合はskipしてください。
-Intel版Homebrewを使っている場合は、Apple Silicon版に切り替える。M1 Macでは、ARM64版Homebrewを使うのが基本である。Apple Silicon版Homebrewの標準インストール先は`/opt/homebrew`で、Intel版は通常`/usr/local`にインストールされる。
+※自分の環境では設定に問題があったため、この手順を実施しています。問題がない場合はスキップしてください。
+Intel版Homebrewを使っている場合は、Apple Silicon版に切り替えます。M1 Macでは、ARM64版Homebrewを使うのが基本です。Apple Silicon版Homebrewの標準インストール先は`/opt/homebrew`で、Intel版は通常`/usr/local`にインストールされます。
 
 現在のターミナルでARM64版Homebrewを優先する。
 
@@ -152,19 +164,19 @@ aws-cli/2.x Python/3.x Darwin/xx.x exe/arm64
 
 TerraformからAWSを操作するには、IAM Identity Centerで作成したユーザーとAWS CLIのSSO認証を使用する。
 
-ユーザー作成、Permission setの割り当て、SSOログイン、Terraformで使用するAWSプロファイルの設定については、次の別記事にまとめた。
+ユーザー作成、Permission setの割り当て、SSOログイン、Terraformで使用するAWSプロファイルの設定については、次の別記事にまとめています。
 
-→ [IAM Identity CenterとAWS CLIのSSO認証](./aws-iam-identity-center-sso.md)
+→ [IAM Identity CenterとAWS CLIのSSO認証](https://makiharu.github.io/persona-blog/tech/04-aws-iam-identity-center-sso/)
 
-認証設定後、Terraformを実行する前に、次のコマンドで対象アカウントを確認する。
+認証設定後、Terraformを実行する前に、次のコマンドで対象アカウントを確認します。
 
 ```bash
 aws sts get-caller-identity
 ```
 
-## 5. TerraformでS3バケットを削除する
+## 5. TerraformでS3バケットを削除する場合
 
-リソースを削除する前に、現在のAWSプロファイルとTerraformの実行対象を確認する。
+リソースを削除する前に、現在のAWSプロファイルとTerraformの実行対象を確認します。
 
 ```bash
 echo "$AWS_PROFILE"
@@ -177,7 +189,7 @@ aws sts get-caller-identity
 terraform plan -destroy
 ```
 
-内容に問題がなければ、次のコマンドで削除する。
+内容に問題がなければ、次のコマンドで削除します。
 
 ```bash
 terraform destroy
@@ -235,20 +247,19 @@ terraform destroy
 - ローカルユーザー名やMacのホスト名
 - アクセストークン、アクセスキー、シークレットキー
 
-また、Terraformの状態ファイル（`terraform.tfstate`）にはAWSリソースの情報が含まれる場合があるため、公開リポジトリにはコミットしない。
+また、Terraformの状態ファイル（`terraform.tfstate`）にはAWSリソースの情報が含まれる場合があるため、公開リポジトリにはコミットしないようにします。
 
-AWSの設定が終わったところで、CLI とTerraformを使って、AWSリソースを操作していく。
+AWSの設定が終わったので、ここからはAWS CLIとTerraformを使ってAWSリソースを操作します。
 
-## TerraformでS3のバケットを作成してみる。
+## TerraformでS3バケットを作成する
 
-> export AWS_PROFILE=YOUR_PROFILE_NAME
+```bash
+export AWS_PROFILE=YOUR_PROFILE_NAME
+```
 
+`main.tf`というファイルを作成します。これは、AWSを最終的にどのような構成にしたいかをTerraformへ伝える設計図です。
 
-main.tfというファイルを作成する。
-→これの意図は？意味は？
-→awsを最終的にどんな構成にしたいかを伝える設計意図。
-
-`main.tf`は、**Terraformに「AWSを最終的にどんな構成にしたいか」を伝える設計図**です。
+`main.tf`は、Terraformに「AWSを最終的にどのような構成にしたいか」を伝える設計図です。
 
 ただし、`main.tf`という名前自体に特別な意味はありません。Terraformは、コマンドを実行したディレクトリにあるすべての`.tf`ファイルを自動で読み込みます。
 
@@ -708,9 +719,10 @@ terraform apply
 HashiCorpのAWS Providerは、Terraformの設定をAWS APIの操作へ変換するアダプター兼実装プラグインです。
 
 
-### terraformの実行
+### Terraformの実行
 
-> terraform init
+```text
+terraform init
 Initializing the backend...
 
 Initializing provider plugins...
@@ -733,8 +745,11 @@ If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 
+```
 
-このような構成になる。
+実行後は、次のような構成になります。
+
+```text
 s3-security-lab/
 ├ .terraform/
 │  └ providers/
@@ -743,14 +758,16 @@ s3-security-lab/
 │           └ aws/
 ├ .terraform.lock.hcl
 └ main.tf
+```
 
+```bash
+terraform plan
+terraform apply
+```
 
-> terraform plan
+Terraformから確認を求められたら、`yes`と入力します。`yes`以外の入力やEnterだけの入力では、処理は実行されません。
 
-> terraform apply
-
-注意。小文字でyesと打たないと、ダメ。Enterだけだと、キャンセル扱いされる。
-
+```text
 YOUR_USER@YOUR_HOST s3-security-lab % AWS_PROFILE=YOUR_PROFILE_NAME terraform apply
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
@@ -835,13 +852,93 @@ Outputs:
 
 bucket_name = "makiharu-s3-security-lab-c4fe4545a78e64ed34b2027d4c"
 
-バケットが作成できた！！！
+```
+
+S3バケットが作成されました。
 
 ![alt text](image.png)
 
-## S3バケットを削除する。
+## S3バケットを削除する
 
-terraform destory
+```bash
+terraform destroy
+```
 
+削除対象を確認するには、次のコマンドを実行します。
+
+```bash
 terraform state list
-で何も表示されていなければ、管理対象は空。AWSコンソールからも消えている。
+```
+
+何も表示されなければ、Terraformの管理対象は空です。AWSコンソールからも、対象のS3バケットが削除されていることを確認します。
+
+## 理解度チェック
+
+### 問1
+
+Terraformは、どのようにAWSリソースを操作するか？
+
+<details>
+<summary>答え</summary>
+Terraform本体が設定ファイルを読み込み、AWS Providerを通じてAWS APIを呼び出す。Terraformが直接S3を操作しているわけではない。
+</details>
+
+### 問2
+
+`main.tf`というファイル名には、特別な意味があるか？
+
+<details>
+<summary>答え</summary>
+特別な意味はない。Terraformは、コマンドを実行したディレクトリにあるすべての`.tf`ファイルをまとめて読み込む。`main.tf`は慣習的によく使われる名前。
+</details>
+
+### 問3
+
+`terraform init`を実行すると、何が行われるか？
+
+<details>
+<summary>答え</summary>
+設定に必要なProviderをTerraform Registryから取得し、`.terraform/`に配置する。また、選択したProviderのバージョンとチェックサムを`.terraform.lock.hcl`に記録する。AWSリソースの作成は行わない。
+</details>
+
+### 問4
+
+`terraform plan`と`terraform apply`の違いは何か？
+
+<details>
+<summary>答え</summary>
+`terraform plan`は、設定とAWSの現在の状態との差分を確認するだけ。`terraform apply`は、確認した変更内容をAWSへ反映する。
+</details>
+
+### 問5
+
+次の設定で、`lab`はAWS上のS3バケット名か？
+
+```hcl
+resource "aws_s3_bucket" "lab" {
+  bucket_prefix = "makiharu-s3-security-lab-"
+}
+```
+
+<details>
+<summary>答え</summary>
+AWS上のバケット名ではない。`lab`はTerraform内部で参照する名前で、実際のバケット名は`bucket_prefix`に一意な文字列が付いた名前になる。
+</details>
+
+### 問6
+
+Terraformで作成したProviderのバージョンをチームで揃えるために、Git管理すべきファイルは何か？
+
+<details>
+<summary>答え</summary>
+`.terraform.lock.hcl`。Providerのバージョンとチェックサムが記録されるため、Git管理する。`.terraform/`ディレクトリは再生成できるため、通常はGit管理しない。
+</details>
+
+### 問7
+
+S3バケットを削除する前に実行すべき確認と、削除コマンドは何か？
+
+<details>
+<summary>答え</summary>
+まず`terraform plan -destroy`で削除対象を確認し、問題がなければ`terraform destroy`を実行する。実行前に、対象AWSアカウントとAWSプロファイルも確認する。
+</details>
